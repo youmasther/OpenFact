@@ -16,7 +16,7 @@ Le projet est pensé pour être **simple, auto-hébergé et extensible**, tout e
 
 ---
 
-## 🇨🇦 Adapté au contexte canadien
+## Adapté au contexte canadien
 
 OpenFac intègre dès le départ :
 - La devise **CAD**
@@ -59,40 +59,39 @@ Toutes les bibliothèques utilisées sont sous **licence libre**, conformément 
 ---
 
 ## 📁 Structure du projet
-
-openfac/
-│
-├── backend/
-│   ├── openfac/
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── asgi.py
-│   │   └── wsgi.py
-│   │
-│   ├── apps/
-│   │   ├── users/
-│   │   ├── clients/
-│   │   ├── invoices/
-│   │   └── taxes/
-│   │
-│   ├── templates/
-│   ├── static/
-│   ├── manage.py
-│   └── requirements.txt
-│
-├── docker/
-│   └── backend/
-│       └── Dockerfile
-│
-├── docker-compose.yml
-├── .env.example
-├── README.md
-├── LICENSE.md
-├── CONTRIBUTING.md
-└── ROADMAP.md
-
-
+```bash
+    openfac/
+    │
+    ├── backend/
+    │   ├── openfac/
+    │   │   ├── __init__.py
+    │   │   ├── settings.py
+    │   │   ├── urls.py
+    │   │   ├── asgi.py
+    │   │   └── wsgi.py
+    │   │
+    │   ├── apps/
+    │   │   ├── users/
+    │   │   ├── clients/
+    │   │   ├── invoices/
+    │   │   └── taxes/
+    │   │
+    │   ├── templates/
+    │   ├── static/
+    │   ├── manage.py
+    │   └── requirements.txt
+    │
+    ├── docker/
+    │   └── backend/
+    │       └── Dockerfile
+    │
+    ├── docker-compose.yml
+    ├── .env.example
+    ├── README.md
+    ├── LICENSE.md
+    ├── CONTRIBUTING.md
+    └── ROADMAP.md
+```
 
 ## 🐳 Installation et lancement avec Docker
 
