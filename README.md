@@ -62,20 +62,28 @@ Toutes les bibliothèques utilisées sont sous **licence libre**, conformément 
 
 openfac/
 │
-├── docker/
-│ └── django/
-│ └── Dockerfile
-│
 ├── backend/
-│ ├── config/
-│ ├── apps/
-│ │ ├── users/
-│ │ ├── clients/
-│ │ ├── invoices/
-│ │ └── taxes/
-│ ├── templates/
-│ ├── static/
-│ └── manage.py
+│   ├── openfac/
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── asgi.py
+│   │   └── wsgi.py
+│   │
+│   ├── apps/
+│   │   ├── users/
+│   │   ├── clients/
+│   │   ├── invoices/
+│   │   └── taxes/
+│   │
+│   ├── templates/
+│   ├── static/
+│   ├── manage.py
+│   └── requirements.txt
+│
+├── docker/
+│   └── backend/
+│       └── Dockerfile
 │
 ├── docker-compose.yml
 ├── .env.example
@@ -83,6 +91,7 @@ openfac/
 ├── LICENSE.md
 ├── CONTRIBUTING.md
 └── ROADMAP.md
+
 
 
 ## 🐳 Installation et lancement avec Docker
@@ -94,10 +103,10 @@ openfac/
 ### Étapes
 
 1. Cloner le dépôt :
-  ```bash
-  git clone https://github.com/youmasther/OpenFac.git
-  cd openfac
-  ```
+    ```bash
+    git clone https://github.com/youmasther/OpenFac.git
+    cd openfac
+    ```
 
 2. Créer le fichier .env à partir de l’exemple :
      ```bash
@@ -105,7 +114,7 @@ openfac/
      ```
 3. Lancer l’application :
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 4. Accéder à l’application :
   http://localhost:8000   
