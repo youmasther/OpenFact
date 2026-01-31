@@ -26,188 +26,243 @@
             </div>
         </div>
         <!-- parametrage -->
-        <div class="tab-content p-1">
-            <div class="tab-pane fade show active py-0 px-0"
-                 id=""
-                 role=""
-                 aria-labelledby="">
-                <div class="card shadow-none py-0 px-0 border-top">
-                    <div class="card-body p-0 pb-3">
-                        <div class="row my-2">
-                            <div class="col-md-6 ">
-                                <form class="position-relative search-boxs my-3 mx-3">
-                                    <input class="form-control search-inputs"
-                                           type="search"
-                                           placeholder="Recherche..."
-                                           aria-label="Search"
-                                           id="searchInput" />
-                                    <span class="fas fa-search search-box-icon"></span>
-                                </form>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center justify-content-end my-3 mx-3">
-                                    <div class="d-none ms-3" id="bulk-select-actions">
-                                        <div class="d-flex">
-                                            <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                                <option selected="selected">Actions groupées</option>
-                                                <option value="Delete">Supprimer</option>
-                                                <option value="Archive">Archiver</option>
-                                            </select>
-                                            <button class="btn btn-falcon-danger btn-sm ms-2" type="button">Appliquer</button>
-                                        </div>
+    <div class="tab-content p-1">
+        <div class="tab-pane fade show active py-0 px-0" id="" role="" aria-labelledby="">
+            <div class="card shadow-none py-0 px-0 border-top">
+                <div class="card-body p-0 pb-3">
+                    <div class="row my-2">
+                        <div class="col-md-6 ">
+                            <form class="position-relative search-boxs my-3 mx-3"><input
+                                    class="form-control search-inputs" type="search" placeholder="Recherche..."
+                                    aria-label="Search" id="searchInput" />
+                                <span class="fas fa-search search-box-icon"></span>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center justify-content-end my-3 mx-3">
+                                <div id="bulk-select-replace-element"><button class="btn btn-falcon-primary btn-sm"
+                                        type="button" data-bs-toggle="modal" data-bs-target="#add_administrator"><span
+                                            class="fas fa-plus" style="color : #2c7be5;"
+                                            data-fa-transform="shrink-3 down-2"></span><span class="ms-1"
+                                            style="color : #2c7be5;">Ajouter un
+                                            nouvel administrateur</span></button>
+                                </div>
+                                <div class="d-none ms-3" id="bulk-select-actions">
+                                    <div class="d-flex">
+                                        <select class="form-select form-select-sm" aria-label="Bulk actions">
+                                            <option selected="selected">Actions groupées</option>
+                                            <option value="Delete">Supprimer</option>
+                                            <option value="Archive">Archiver</option>
+                                        </select>
+                                        <button class="btn btn-falcon-danger btn-sm ms-2"
+                                            type="button">Appliquer</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive scrollbar">
-                            <table class="table mb-0">
-                                <thead class="text-black ">
-                                    <tr>
-                                        <th class="align-middle white-space-nowrap">
-                                            <div class="form-check mb-0">
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />
+                    </div>
+
+                    <div class="table-responsive scrollbar">
+                        <table class="table mb-0">
+                            <thead class="text-black ">
+                                <tr>
+                                    <th class="align-middle white-space-nowrap">
+                                        <div class="form-check mb-0"><input class="form-check-input" type="checkbox"
+                                                data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />
+                                        </div>
+                                    </th>
+                                    
+                                    <th class="align-middle">ADMINISTRATEUR</th>
+                                    <th class="align-middle">E-MAIL</th>
+                                    <th class="align-middle">ROLE</th>
+                                    <th class="align-middle white-space-nowrap pe-3">STATUT</th>
+                                    <th class="align-middle white-space-nowrap pe-3">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bulk-select-body" class="administrator_list">
+                                {% if administrators %}
+                                {% for administrator in administrators %}
+                                <tr>
+                                    <td class="align-middle white-space-nowrap">
+                                        <div class="form-check mb-0"><input class="form-check-input" type="checkbox"
+                                                id="checkbox-{{ administrator.id }}"
+                                                data-bulk-select-row="data-bulk-select-row" /></div>
+                                    </td>
+                                    <th class="align-middle click-administrator cursor-pointer d-flex align-items-center"
+                                        title="double clique pour voir le detail">
+                                        <div class="avatar avatar-2xl me-2">
+                                            <div class="avatar-name rounded-circle">
+                                                <span>{{ administrator.acronym }}</span>
                                             </div>
-                                        </th>
-                                        <th class="align-middle">Nom </th>
-                                        <th class="align-middle">Prenom</th>
-                                        <th class="align-middle">Email</th>
-                                        <th class="align-middle white-space-nowrap pe-3 text-center">STATUT</th>
-                                        <th class="align-middle white-space-nowrap pe-3 text-center">ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bulk-select-body" class="stock_list">
-                                    {% if stocks %}
-                                        {% for stock in stocks %}
-                                            <tr class=" {% if stock.quantity > stock.minimum_stock and stock.quantity <= 8 %} table-warning {% elif stock.quantity < stock.minimum_stock %} table-danger {% endif %} ">
-                                                <td class="align-middle white-space-nowrap">
-                                                    <div class="form-check mb-0">
-                                                        <input class="form-check-input"
-                                                               type="checkbox"
-                                                               id="checkbox-{{ stock.id }}"
-                                                               data-bulk-select-row="data-bulk-select-row" />
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle text-truncate d-flex align-items-center">
-                                                    <div class="avatar avatar-3xl me-2 ">
-                                                        <div class="avatar-name rounded-soft">
-                                                            {% if stock.image %}
-                                                                <img class="rounded-soft" src="{{ stock.image.url }}" alt="" />
-                                                            {% else %}
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                     width="50"
-                                                                     height="50"
-                                                                     viewBox="0 0 20 20">
-                                                                    <path fill="currentColor" d="M17 8h1v11H2V8h1V6c0-2.76 2.24-5 5-5c.71 0 1.39.15 2 .42A4.9 4.9 0 0 1 12 1c2.76 0 5 2.24 5 5zM5 6v2h2V6c0-1.13.39-2.16 1.02-3H8C6.35 3 5 4.35 5 6m10 2V6c0-1.65-1.35-3-3-3h-.02A4.98 4.98 0 0 1 13 6v2zm-5-4.22C9.39 4.33 9 5.12 9 6v2h2V6c0-.88-.39-1.67-1-2.22" />
-                                                                </svg>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <span class="my-auto">{{ stock.product.product_name }}</span>
-                                                </td>
-                                                <td class="align-middle">{{ stock.quantity }}</td>
-                                                <td class="align-middle">{{ stock.minimum_stock }}</td>
-                                                <td class="align-middle text-center white-space-nowrap text-center pe-3 click-status cursor-pointer"
-                                                    title="double clique pour voir changer le statut">
-                                                    {% if stock.quantity > 8 %}
-                                                        <span class="badge bg-success">En stock</span>
-                                                    {% elif stock.quantity > stock.minimum_stock and stock.quantity <= 8 %}
-                                                        <span class="badge bg-warning">Presque vide</span>
-                                                    {% else %}
-                                                        <span class="badge bg-danger">Vide</span>
-                                                    {% endif %}
-                                                </td>
-                                                <td class="align-middle white-space-nowrap text-end pe-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
-                                                                id="email-options"
-                                                                type="button"
-                                                                data-bs-toggle="dropdown"
-                                                                data-boundary="viewport"
-                                                                aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                            <span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end border py-2"
-                                                             aria-labelledby="email-options">
-                                                            <button class="dropdown-item btn-edit"
-                                                                    type="button"
-                                                                    data-id="{{ stock.id }}"
-                                                                    data-name="{{ stock.product.product_name }}"
-                                                                    data-quantity="{{ stock.quantity }}">
-                                                                <svg class='me-2'
-                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                     width="20"
-                                                                     height="20"
-                                                                     viewBox="-2 -2 24 24">
-                                                                    <path fill="#665e5e" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.9.9 0 0 1-1.11-.623a.9.9 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635z" />
-                                                                </svg>
-                                                                Modifier
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endif %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-center mt-3">
-                            <ul class="pagination">
-                                {% if stocks.has_previous %}
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-outline-secondary me-1"
-                                           href="?page=1"
-                                           aria-label="Previous">
-                                            <span aria-hidden="true">&laquo; &laquo;</span>
-                                        </a>
-                                    </li>
+                                        </div>
+                                        <span class="my-auto">
+                                            {{ administrator.user.first_name }} {{ administrator.user.last_name }}
+                                        </span>
+                                    </th>
+                                    <td class="align-middle">{{ administrator.user.email }}</td>
+                                    <td class="align-middle">
+                                            <span class="badge bg-success"> {{ administrator.type_user }}</span>
+                                        
+                                    </td>
+                                    <td class="align-middle white-space-nowrap text-center pe-3 click-status cursor-pointer"
+                                        title="double clique pour voir changer le statut">
+                                        {% if administrator.user.is_active %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24">
+                                            <path fill="#0c8209" fill-rule="evenodd"
+                                                d="M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18m-.232-5.36l5-6l-1.536-1.28l-4.3 5.159l-2.225-2.226l-1.414 1.414l3 3l.774.774z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24">
+                                            <path fill="#ff8117"
+                                                d="M11 8h2v6h-2zm4-7H9v2h6zm-3 19c-3.87 0-7-3.13-7-7s3.13-7 7-7c3.54 0 6.45 2.62 6.93 6.03c.72.05 1.41.2 2.07.47a9.16 9.16 0 0 0-1.97-5.11l1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c.34 0 .67 0 1-.06c-.37-.59-.65-1.25-.82-1.94zm11-1.5c0 2.5-2 4.5-4.5 4.5S14 21 14 18.5s2-4.5 4.5-4.5s4.5 2 4.5 4.5m-3 2.58L15.92 17c-.27.42-.42.94-.42 1.5c0 1.66 1.34 3 3 3c.56 0 1.08-.15 1.5-.42m1.5-2.58c0-1.66-1.34-3-3-3c-.56 0-1.08.15-1.5.42L21.08 20c.27-.42.42-.94.42-1.5" />
+                                        </svg>
+                                        {% endif %}
+                                    </td>
+                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                        <div class="d-flex align-items-center">
+                                            <button
+                                                class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
+                                                id="email-options" type="button" data-bs-toggle="dropdown"
+                                                data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                                                <span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end border py-2"
+                                                aria-labelledby="email-options">
+                                                <button class="dropdown-item btn-detail" type="button"
+                                                    data-code="{{ administrator.code }}"
+                                                    data-full_name="{{ administrator.user.first_name }} {{ administrator.user.last_name }}"
+                                                    data-email="{{ administrator.user.email }}"
+                                                    data-phone="{{ administrator.user.phone }}"
+                                                    data-civility="{{ administrator.user.civility }}"
+                                                    data-created_by="{{ administrator.created_by.first_name }} {{ administrator.created_by.last_name }}">
+                                                    <svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 24 24">
+                                                        <path fill="#665e5e"
+                                                            d="M12 9.75a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5" />
+                                                        <path fill="#665e5e" fill-rule="evenodd"
+                                                            d="M12 5.5c-2.618 0-4.972 1.051-6.668 2.353c-.85.652-1.547 1.376-2.036 2.08c-.48.692-.796 1.418-.796 2.067s.317 1.375.796 2.066c.49.705 1.186 1.429 2.036 2.08C7.028 17.45 9.382 18.5 12 18.5s4.972-1.051 6.668-2.353c.85-.652 1.547-1.376 2.035-2.08c.48-.692.797-1.418.797-2.067s-.317-1.375-.797-2.066c-.488-.705-1.185-1.429-2.035-2.08C16.972 6.55 14.618 5.5 12 5.5M8.25 12a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    Détail
+                                                </button>
+                                                <div class="dropdown-divider"></div>
+                                                <button class="dropdown-item btn-edit" type="button"
+                                                    data-id="{{ administrator.id }}"
+                                                    data-code="{{ administrator.code }}"
+                                                    data-full_name="{{ administrator.user.first_name }} {{ administrator.user.last_name }}"
+                                                    data-first_name="{{ administrator.user.first_name }}"
+                                                    data-last_name="{{ administrator.user.last_name }}"
+                                                    data-email="{{ administrator.user.email }}"
+                                                    data-civility="{{ administrator.user.civility }}"
+                                                    data-phone="{{ administrator.user.phone }}">
+                                                    <svg class='me-2' xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="-2 -2 24 24">
+                                                        <path fill="#665e5e"
+                                                            d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.9.9 0 0 1-1.11-.623a.9.9 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635z" />
+                                                    </svg>
+                                                    Modifier
+                                                </button>
+                                                <div class="dropdown-divider"></div>
+                                                {% if administrator.user.is_active %}
+                                                <button class="dropdown-item btn-status" type="button"
+                                                    data-id="{{administrator.id}}" data-status="disable">
+                                                    <svg class='me-2' xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 24 24">
+                                                        <path fill="#665e5e"
+                                                            d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q1.35 0 2.6-.437t2.3-1.263L5.7 7.1q-.825 1.05-1.263 2.3T4 12q0 3.35 2.325 5.675T12 20m6.3-3.1q.825-1.05 1.263-2.3T20 12q0-3.35-2.325-5.675T12 4q-1.35 0-2.6.437T7.1 5.7z" />
+                                                    </svg>
+                                                    Désactiver
+                                                </button>
+                                                {% else %}
+                                                <button class="dropdown-item btn-status" type="button"
+                                                    data-id="{{administrator.id}}" data-status="active">
+                                                    <svg class='me-2' xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 24 24">
+                                                        <path fill="#665e5e"
+                                                            d="M10.5 15.25A.74.74 0 0 1 10 15l-3-3a.75.75 0 0 1 1-1l2.47 2.47L19 5a.75.75 0 0 1 1 1l-9 9a.74.74 0 0 1-.5.25" />
+                                                        <path fill="#665e5e"
+                                                            d="M12 21a9 9 0 0 1-7.87-4.66a8.7 8.7 0 0 1-1.07-3.41a9 9 0 0 1 4.6-8.81a8.7 8.7 0 0 1 3.41-1.07a8.9 8.9 0 0 1 3.55.34a.75.75 0 1 1-.43 1.43a7.6 7.6 0 0 0-3-.28a7.4 7.4 0 0 0-2.84.89a7.5 7.5 0 0 0-2.2 1.84a7.42 7.42 0 0 0-1.64 5.51a7.4 7.4 0 0 0 .89 2.84a7.5 7.5 0 0 0 1.84 2.2a7.42 7.42 0 0 0 5.51 1.64a7.4 7.4 0 0 0 2.84-.89a7.5 7.5 0 0 0 2.2-1.84a7.42 7.42 0 0 0 1.64-5.51a.75.75 0 1 1 1.57-.15a9 9 0 0 1-4.61 8.81A8.7 8.7 0 0 1 12.93 21z" />
+                                                    </svg>
+                                                    Activer
+                                                </button>
+                                                {% endif %}
+                                                <div class="dropdown-divider"></div>
+                                                <button class="dropdown-item btn-delete" type="button"
+                                                    data-id="{{ administrator.id }}"
+                                                    data-full_name="{{ administrator.user.first_name }} {{ administrator.user.last_name }}">
+                                                    <svg class='me-2' xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 24 24">
+                                                        <path fill="#665e5e"
+                                                            d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                                    </svg>
+                                                    Supprimer
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
                                 {% endif %}
-                                {% if stocks.has_previous %}
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-outline-secondary me-1"
-                                           href="?page={{ stocks.previous_page_number }}"
-                                           aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                {% if stocks.paginator.num_pages > 1 %}
-                                    {% for num in stocks.paginator.page_range %}
-                                        <li class="page-item {% if stocks.number == num %}active{% endif %}">
-                                            <a class="page-link btn btn-outline{% if stocks.number == num %}-primary {% else %}-secondary{% endif %} me-1"
-                                               href="?page={{ num }}">{{ num }}</a>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                                {% if stocks.has_next %}
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-outline-secondary me-1"
-                                           href="?page={{ stocks.next_page_number }}"
-                                           aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                {% if stocks.has_next %}
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-outline-secondary"
-                                           href="?page={{ stocks.paginator.num_pages }}"
-                                           aria-label="Next">
-                                            <span aria-hidden="true">&raquo; &raquo;</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <ul class="pagination">
+
+                            {% if administrators.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-outline-secondary me-1" href="?page=1"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo; &laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if administrators.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-outline-secondary me-1"
+                                    href="?page={{ administrators.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if administrators.paginator.num_pages > 1 %}
+                            {% for num in administrators.paginator.page_range %}
+                            <li class="page-item {% if administrators.number == num %}active{% endif %}">
+                                <a class="page-link btn btn-outline{% if administrators.number == num %}-primary {% else %}-secondary{% endif %} me-1"
+                                    href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                            {% endfor %}
+                            {% endif %}
+
+                            {% if administrators.has_next %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-outline-secondary me-1"
+                                    href="?page={{ administrators.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if administrators.has_next %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-outline-secondary"
+                                    href="?page={{ administrators.paginator.num_pages }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo; &raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
             </div>
-            
         </div>
+
     </div>
+</div>
 {% endblock content %}
 {% block custom_js %}
     <script src="{% static 'js/shop/stock.js' %}" type="text/javascript"></script>

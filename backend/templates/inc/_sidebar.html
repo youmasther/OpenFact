@@ -51,8 +51,8 @@
                 <li class="nav-item">
                     
                     <!-- parent pages-->
-                    <a class="nav-link "
-                       href=""
+                    <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                       href="{% url 'users:index' %}"
                        role="button"
                        aria-expanded="false">
                         <div class="d-flex align-items-center">
@@ -67,8 +67,8 @@
                 <li class="nav-item">
                     
                     <!-- parent pages-->
-                    <a class="nav-link active"
-                       href=""
+                    <a class="nav-link {% if request.resolver_match.url_name == 'customers' %}active{% endif %}"
+                       href="{% url 'customers:customers' %}"
                        role="button"
                        aria-expanded="false">
                         <div class="d-flex align-items-center">
