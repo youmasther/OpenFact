@@ -91,7 +91,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_("Last name"), max_length=50, blank=True)
     phone = models.CharField(_("Phone"), max_length=15, unique=True)
     email = models.EmailField(_("Email address"), unique=True)
-    profile_img = models.ImageField(_("Image de profil"), upload_to=upload_profile_image, blank=True, null=True)
+    # profile_img = models.ImageField(_("Image de profil"), upload_to=upload_profile_image, blank=True, null=True)
     type_user = models.CharField(_("User Type"), max_length=20, choices=USER_ROLES, default='agent')
     
 
