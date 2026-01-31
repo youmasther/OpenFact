@@ -16,11 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.users.urls', namespace='users')),
-    path('', include('apps.clients.urls', namespace='clients')),
-    path('', include('apps.invoices.urls', namespace='invoices')),
+    path('client/', include('apps.clients.urls', namespace='clients')),
+    path('facture/', include('apps.invoices.urls', namespace='invoices')),
     # path('', include('apps.taxes.urls', namespace='taxes')),
 ]
+
+if settings.DEBUG:
+    # En mode développement, servir les fichiers statiques et médias via Django
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # En mode production, les fichiers statiques et médias devraient être servis par le serveur web
+    # Assurez-vous que STATIC_ROOT et MEDIA_ROOT sont correctement configurés
+    pass

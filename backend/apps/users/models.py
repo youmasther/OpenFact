@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-
-
+from PIL import Image
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,6 +36,14 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, phone, password, **extra_fields)
 
 
+def upload_company_logo(instance, filename):
+    """
+    Fonction pour gérer le téléchargement de logo entreprise.
+    """
+    # Générer un nom de fichier unique basé sur l'horodatage
+    ext = filename.split('.')[-1]
+    filename = f"{timezone.now().strftime('%Y%m%d%H%M%S')}.{ext}"
+
 class Company(models.Model):
     company_name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -45,7 +52,7 @@ class Company(models.Model):
     gsm = models.CharField(max_length=50, blank=True)
 
     email = models.EmailField(blank=True)
-
+    logo = models.ImageField(_("Logo"), upload_to=upload_company_logo, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True)
     zipcode = models.CharField(max_length=20, blank=True)
 
@@ -81,19 +88,12 @@ def default_profile_image():
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    USER_ROLES = [
-        ('admin', 'Admin'),
-        ('MANAGER', 'Gerant'),
-        ('Agent', 'Agent'),
-    ]
 
     first_name = models.CharField(_("First name"), max_length=50, blank=True)
     last_name = models.CharField(_("Last name"), max_length=50, blank=True)
     phone = models.CharField(_("Phone"), max_length=15, unique=True)
     email = models.EmailField(_("Email address"), unique=True)
     # profile_img = models.ImageField(_("Image de profil"), upload_to=upload_profile_image, blank=True, null=True)
-    type_user = models.CharField(_("User Type"), max_length=20, choices=USER_ROLES, default='agent')
-    
 
     # Additional fields
     is_staff = models.BooleanField(_("Staff"), default=False)
@@ -119,3 +119,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+class Administrator(models.Model):
+    USER_ROLES = [
+        ('admin', 'Admin'),
+        ('MANAGER', 'Gerant'),
+        ('Agent', 'Agent'),
+    ]
+
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="company_admins", null=True, blank=True)
+    type_user = models.CharField(_("User Type"), max_length=20, choices=USER_ROLES, default='agent')
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name} - {self.company.company_name}"

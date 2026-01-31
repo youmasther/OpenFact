@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="row g-3 mb-1 mt-1 m-auto" id="content">
+        <div class="row w-100 px-0 mx-0">
+            <div class="card">
+                <div class="bg-holder d-none d-lg-block bg-card"
+                     style="background-image: url({% static 'assets/img/icons/spot-illustrations/corner-4.png' %})">
+                </div>
+                <!--/.bg-holder-->
+                <div class="card-body position-relative">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="p-0">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="30"
+                                         height="30"
+                                         viewBox="0 0 20 20">
+                                        <path fill="currentColor" d="M18 3.5c0 .62-.38 1.16-.92 1.38v13.11H1.99l4.22-6.73A1.5 1.5 0 0 1 6 10.5C6 9.67 6.67 9 7.5 9S9 9.67 9 10.5c0 .13-.02.25-.05.37l1.44.63c.27-.3.67-.5 1.11-.5c.18 0 .35.04.51.09l3.58-6.41c-.36-.27-.59-.7-.59-1.18c0-.83.67-1.5 1.5-1.5c.19 0 .36.04.53.1l.05-.09v.11c.54.22.92.76.92 1.38m-1.92 13.49V5.85l-3.29 5.89c.13.23.21.48.21.76c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5l.01-.07l-1.63-.72c-.25.18-.55.29-.88.29c-.18 0-.35-.04-.51-.1l-3.2 5.09z" />
+                                    </svg>
+                                </span>
+                                <span class="text-center p-0 mb-0 mt-3 h-100">Client</span>
+                            </h4>
+                        </div>
+                        {% comment %}
+                    <div class="col-lg-4"></div>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- parametrage -->
+        <div class="tab-content p-1">
+            <div class="tab-pane fade show active py-0 px-0"
+                 id=""
+                 role=""
+                 aria-labelledby="">
+                <div class="card shadow-none py-0 px-0 border-top">
+                    <div class="card-body p-0 pb-3">
+                        <div class="row my-2">
+                            <div class="col-md-6 ">
+                                <form class="position-relative search-boxs my-3 mx-3">
+                                    <input class="form-control search-inputs"
+                                           type="search"
+                                           placeholder="Recherche..."
+                                           aria-label="Search"
+                                           id="searchInput" />
+                                    <span class="fas fa-search search-box-icon"></span>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center justify-content-end my-3 mx-3">
+                                    <div class="d-none ms-3" id="bulk-select-actions">
+                                        <div class="d-flex">
+                                            <select class="form-select form-select-sm" aria-label="Bulk actions">
+                                                <option selected="selected">Actions groupées</option>
+                                                <option value="Delete">Supprimer</option>
+                                                <option value="Archive">Archiver</option>
+                                            </select>
+                                            <button class="btn btn-falcon-danger btn-sm ms-2" type="button">Appliquer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive scrollbar">
+                            <table class="table mb-0">
+                                <thead class="text-black ">
+                                    <tr>
+                                        <th class="align-middle white-space-nowrap">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />
+                                            </div>
+                                        </th>
+                                        <th class="align-middle">Nom </th>
+                                        <th class="align-middle">Prenom</th>
+                                        <th class="align-middle">Email</th>
+                                        <th class="align-middle white-space-nowrap pe-3 text-center">STATUT</th>
+                                        <th class="align-middle white-space-nowrap pe-3 text-center">ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bulk-select-body" class="stock_list">
+                                    {% if stocks %}
+                                        {% for stock in stocks %}
+                                            <tr class=" {% if stock.quantity > stock.minimum_stock and stock.quantity <= 8 %} table-warning {% elif stock.quantity < stock.minimum_stock %} table-danger {% endif %} ">
+                                                <td class="align-middle white-space-nowrap">
+                                                    <div class="form-check mb-0">
+                                                        <input class="form-check-input"
+                                                               type="checkbox"
+                                                               id="checkbox-{{ stock.id }}"
+                                                               data-bulk-select-row="data-bulk-select-row" />
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-truncate d-flex align-items-center">
+                                                    <div class="avatar avatar-3xl me-2 ">
+                                                        <div class="avatar-name rounded-soft">
+                                                            {% if stock.image %}
+                                                                <img class="rounded-soft" src="{{ stock.image.url }}" alt="" />
+                                                            {% else %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     width="50"
+                                                                     height="50"
+                                                                     viewBox="0 0 20 20">
+                                                                    <path fill="currentColor" d="M17 8h1v11H2V8h1V6c0-2.76 2.24-5 5-5c.71 0 1.39.15 2 .42A4.9 4.9 0 0 1 12 1c2.76 0 5 2.24 5 5zM5 6v2h2V6c0-1.13.39-2.16 1.02-3H8C6.35 3 5 4.35 5 6m10 2V6c0-1.65-1.35-3-3-3h-.02A4.98 4.98 0 0 1 13 6v2zm-5-4.22C9.39 4.33 9 5.12 9 6v2h2V6c0-.88-.39-1.67-1-2.22" />
+                                                                </svg>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <span class="my-auto">{{ stock.product.product_name }}</span>
+                                                </td>
+                                                <td class="align-middle">{{ stock.quantity }}</td>
+                                                <td class="align-middle">{{ stock.minimum_stock }}</td>
+                                                <td class="align-middle text-center white-space-nowrap text-center pe-3 click-status cursor-pointer"
+                                                    title="double clique pour voir changer le statut">
+                                                    {% if stock.quantity > 8 %}
+                                                        <span class="badge bg-success">En stock</span>
+                                                    {% elif stock.quantity > stock.minimum_stock and stock.quantity <= 8 %}
+                                                        <span class="badge bg-warning">Presque vide</span>
+                                                    {% else %}
+                                                        <span class="badge bg-danger">Vide</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="align-middle white-space-nowrap text-end pe-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
+                                                                id="email-options"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                data-boundary="viewport"
+                                                                aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            <span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                                                             aria-labelledby="email-options">
+                                                            <button class="dropdown-item btn-edit"
+                                                                    type="button"
+                                                                    data-id="{{ stock.id }}"
+                                                                    data-name="{{ stock.product.product_name }}"
+                                                                    data-quantity="{{ stock.quantity }}">
+                                                                <svg class='me-2'
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                     width="20"
+                                                                     height="20"
+                                                                     viewBox="-2 -2 24 24">
+                                                                    <path fill="#665e5e" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.9.9 0 0 1-1.11-.623a.9.9 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635z" />
+                                                                </svg>
+                                                                Modifier
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <ul class="pagination">
+                                {% if stocks.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-outline-secondary me-1"
+                                           href="?page=1"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo; &laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if stocks.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-outline-secondary me-1"
+                                           href="?page={{ stocks.previous_page_number }}"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if stocks.paginator.num_pages > 1 %}
+                                    {% for num in stocks.paginator.page_range %}
+                                        <li class="page-item {% if stocks.number == num %}active{% endif %}">
+                                            <a class="page-link btn btn-outline{% if stocks.number == num %}-primary {% else %}-secondary{% endif %} me-1"
+                                               href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if stocks.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-outline-secondary me-1"
+                                           href="?page={{ stocks.next_page_number }}"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if stocks.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-outline-secondary"
+                                           href="?page={{ stocks.paginator.num_pages }}"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo; &raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock content %}
+{% block custom_js %}
+    <script src="{% static 'js/shop/stock.js' %}" type="text/javascript"></script>
+{% endblock custom_js %}

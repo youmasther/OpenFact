@@ -1,5 +1,5 @@
 from django.db import models
-
+from apps.users.models import Company
 # Create your models here.
 
 
@@ -10,7 +10,7 @@ class Invoice(models.Model):
         ('PAID', 'PAYÉ'),
     ]
     code = models.CharField(max_length=255 , unique=True)
-    comnany = models.ForeignKey('users.Company', on_delete=models.SET_NULL, null=True)
+    comnany = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=INVOICE_STATUS, default='PENDING')
@@ -41,5 +41,4 @@ class InvoiceItem(models.Model):
 
     def __str__(self):
         return self.name + ' (' + str(self.quantity) + ' x ' + str(self.price) + ' = ' + str(self.total) + ')'
-    
     

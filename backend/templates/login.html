@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <form action="{% url 'users:login' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label" for="login">IDENTIFIANT</label>
+                <input class="form-control ala-input" id="login" name="login" type="text" />
+            </div>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label" style="color: white;">
+                    MOT DE PASSE
+                    :
+                </label>
+                <div class="input-group mb-3" id="login_box">
+                    <input class="form-control ala-input"
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="mot de passe"
+                            aria-label="password"
+                            aria-describedby="basic-addon2" />
+                    <span class="input-group-text"
+                            id="basic-addon2"
+                            style="background-color: white"><a href="#"><i class="fa fa-eye-slash ala-text" aria-hidden="true"></i></a></span>
+                </div>
+            </div>
+            <div class="row flex-between-center">
+                <div class="col-auto"></div>
+                <div class="col-auto">
+                    
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-outline-secondary d-block w-100 mt-3 "
+                        type="submit"
+                        name="submit">Se connecter</button>
+            </div>
+        </form>
+    </div>
+        
+</body>
+</html>

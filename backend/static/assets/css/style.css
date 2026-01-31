@@ -1,0 +1,23 @@
+:root {
+  --ala-primary: #4cc9f0;
+  --ala-black: #122424;
+  --ala-white: #f1f1f1;
+  --ala-grey: #f5f5f5;
+  --ala-green: #28953c;
+  --ala-secondary: rgb(240, 239, 244);
+}
+.spinner {
+  background-color: white;
+}
+
+.ala-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom: 2px solid var(--ala-primary);
+}
+.bg-ala {
+  background-color: var(--ala-primary);
+}
+.ala-text {
+  color: var(--ala-primary);
+}

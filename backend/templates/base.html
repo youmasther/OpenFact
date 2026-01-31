@@ -1,11 +1,307 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenFact</title>
-</head>
-<body>
-    hello
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon"
+              type="image/x-icon"
+              href="{% static 'web/imgs/alalake_favicon2.jpeg' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="description" content="Alalake Shop" />
+        <link rel="manifest"
+              href="{% static 'assets/img/favicons/manifest.json' %}" />
+        <meta name="msapplication-TileImage"
+              content="{% static 'assets/img/favicons/mstile-150x150.png' %}" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="icon" href="{% static 'web/imgs/alalake_favicon2.jpeg' %}" />
+        <script src="{% static 'assets/js/config.js' %} "></script>
+        <script src="{% static 'vendors/overlayscrollbars/OverlayScrollbars.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery/jquery.js' %}"></script>
+        <link href="{% static 'vendors/swiper/swiper-bundle.min.css' %}"
+              rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css"
+              rel="stylesheet">
+        {% comment %}
+        <script defer src="{% static 'vendors/jquery-ui/jquery-ui.min.js' %}"></script> {% endcomment %}
+        <link rel="manifest" href="{% static 'manifest.json' %} " />
+        <title>ALALAKE(shop)</title>
+        {% comment %}
+        <link rel="preconnect" href="https://fonts.gstatic.com/" /> {% endcomment %}
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
+              rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css">
+        <link href="{% static 'vendors/flatpickr/flatpickr.min.css' %} "
+              rel="stylesheet" />
+        <link href="{% static 'vendors/overlayscrollbars/OverlayScrollbars.min.css' %}"
+              rel="stylesheet" />
+        <link href="{% static 'vendors/choices/choices.min.css' %}"
+              rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/css/tom-select.css"
+              rel="stylesheet">
+        <link href="{% static 'assets/css/theme-rtl.min.css' %}"
+              rel="stylesheet"
+              id="style-rtl" />
+        <link href="{% static 'assets/css/theme.min.css' %}"
+              rel="stylesheet"
+              id="style-default" />
+        <link href="{% static 'assets/css/user-rtl.min.css' %}"
+              rel="stylesheet"
+              id="user-style-rtl" />
+        <link href="{% static 'assets/css/user.min.css' %}"
+              rel="stylesheet"
+              id="user-style-default" />
+        <link href="{% static 'vendors/glightbox/glightbox.min.css' %}"
+              rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet"
+              type="text/css"
+              href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet"
+              href="{% static 'vendors/jquery-ui/jquery-ui.min.css' %}">
+        <link href="{% static 'vendors/editor/suneditor.min.css' %}"
+              rel="stylesheet">
+        {% comment %}
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"> {% endcomment %}
+        <script src="{% static 'assets/js/inline_1.js' %}"></script>
+        <style>
+        /* Style pour centrer le loader au milieu de la page */
+        .loader-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            /* La hauteur prend tout l'espace de la fenêtre */
+            width: 100vw;
+            /* La largeur prend tout l'espace de la fenêtre */
+            position: fixed;
+            /* Garde le loader au centre même lors du défilement */
+            top: 0;
+            left: 0;
+            /* Optionnel : ajoute un fond semi-transparent */
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100000;
+            /* Assure que le loader est au-dessus d'autres éléments */
+        }
+
+        /* Loader */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: block;
+            border-top: 4px solid #FFF;
+            border-right: 4px solid transparent;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::after {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border-bottom: 4px solid #FF3D00;
+            border-left: 4px solid transparent;
+        }
+
+        /* Animation */
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .toast.fade {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Apparence du toast */
+        .toast-body {
+            font-size: 1.1rem;
+            padding: 0.25rem;
+            /* background-color: #198754; */
+            border-radius: 0.25rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Bouton de fermeture */
+        .btn-close-white {
+            filter: brightness(1.2);
+            /* Assure un contraste harmonieux */
+        }
+
+        /* Ajout d'une ombre */
+        .toast {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icône success */
+        .toast-body i {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        .search-boxs {
+            position: relative;
+            width: 21rem;
+            font-size: .8333333333rem;
+        }
+
+        .search-boxs .search-inputs {
+            padding-left: 2rem;
+            padding-right: 2rem;
+            line-height: 1.7;
+            border-radius: 50rem;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .search-boxs .search-box-icon {
+            position: absolute;
+            color: var(--falcon-400);
+            top: 50%;
+            left: .9rem;
+            -webkit-transform: translateY(-48%);
+            -ms-transform: translateY(-48%);
+            transform: translateY(-48%);
+        }
+
+        label.required::after {
+            content: " *";
+            color: red;
+        }
+        </style>
+        {% block custom_css %}
+        {% endblock custom_css %}
+    </head>
+    <body class="p-0 m-0">
+        <div class="loader-container d-none" id="loader">
+            <!-- <img class="logo img-fluid position-relative d-block"
+      src="{% static 'img/coxi-red.png' %}"
+      alt=""> -->
+            <span class="loader"></span>
+        </div>
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 100000">
+            <div id="success-toast"
+                 class="toast align-items-center text-white bg-success border-0 shadow-lg fade"
+                 role="alert"
+                 aria-live="assertive"
+                 aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <span id="success-message" class="">Succès !</span>
+                    </div>
+                    <button type="button"
+                            class="btn-close btn-close-white text-white me-2 m-auto"
+                            data-bs-dismiss="toast"
+                            aria-label="Fermer"></button>
+                </div>
+            </div>
+        </div>
+        <!-- ===============================================-->
+        <!--    Main Content-->
+        <!-- ===============================================-->
+        <main class="main" id="top">
+            <div class="container-fluid" data-layout="container">
+                <script src="{% static 'assets/js/inline_2.js' %}"></script>
+                {% include "inc/_sidebar.html" %}
+                <div class="content h-100">
+                    {% include "inc/_header.html" %}
+                    {% comment %}
+                    <script src="{% static " assets/js/inline_3.js" %}"></script> {% endcomment %}
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </main>
+        <!-- ===============================================-->
+        <!--    End of Main Content-->
+        <!-- ===============================================-->
+    </body>
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="{% static 'vendors/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/anchorjs/anchor.min.js' %}"></script>
+    <script src="{% static 'vendors/is/is.min.js' %}"></script>
+    <script src="{% static 'vendors/choices/choices.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="{% static 'vendors/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'vendors/lodash/lodash.min.js' %}"></script>
+    <script src="{% static 'vendors/glightbox/glightbox.min.js' %}"></script>
+    <script type="text/javascript"
+            src="https://cdn.plyr.io/3.6.8/plyr.js"
+            aria-hidden="true"></script>
+    <script src="{% static 'vendors/editor/suneditor.min.js' %}"> </script>
+    <script src="{% static 'vendors/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.11.18/libphonenumber-js.min.js"
+            integrity="sha512-xYpZhWSfzXH+X7zg1tAiFE437jcrnPSpB+IUvzafBajs+9Wmqu1YHaD/wjklA2+hP8LOTcH2BRqeJjgxP34B8w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'vendors/list.js/list.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %} "></script>
+    <script>
+    $(document).ready(function () {
+        // ----------------------------------------
+        $(document).on("keyup", "#searchInput, #searchInput2", function () {
+            var value = $(this).val().toLowerCase();
+
+            $(".table tbody tr").each(function () {
+                var row = $(this);
+                var textMatch = row.text().toLowerCase().indexOf(value) > -1;
+
+                if (textMatch) {
+                    row.stop(true, true).fadeIn(300); // Afficher avec une animation
+                } else {
+                    row.stop(true, true).fadeOut(300); // Cacher avec une animation
+                }
+            });
+        });
+
+        // Check theme in localStorage on page load
+        const savedTheme = localStorage.getItem('theme') || 'light'
+        $('.mode-switchable').each(function () {
+            const img = $(this);
+            const newSrc = (savedTheme === 'dark') ? img.data('light-src') : img.data('dark-src');
+            img.attr('src', newSrc);
+        });
+        $('#themeControlToggle').on('change', function () {
+            const isDarkMode = this.checked;
+
+            // Update all images with the class 'mode-switchable'
+            $('.mode-switchable').each(function () {
+                const img = $(this);
+                const newSrc = isDarkMode ? img.data('light-src') : img.data('dark-src');
+                img.attr('src', newSrc);
+            });
+        });
+    });
+
+    </script>
+    {% block custom_js %}
+    {% endblock custom_js %}
 </html>
