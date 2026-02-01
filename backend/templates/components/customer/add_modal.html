@@ -1,0 +1,80 @@
+{% load static %}
+<!-- add agent -->
+<div class="modal fade" id="add_customer" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="bg-holder d-none d-lg-block bg-card"
+                style="background-image: url({% static 'assets/img/icons/spot-illustrations/corner-2.png' %});">
+            </div>
+            <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1"><button
+                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal"
+                    aria-label="Close"></button></div>
+            <form class="modal-body p-0" id="add_customer_form">
+                {% csrf_token %}
+                <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                    <h4 class="mb-1" id="staticBackdropLabel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19c0-2.21-2.686-4-6-4s-6 1.79-6 4m16-3v-3m0 0v-3m0 3h-3m3 0h3M9 12a4 4 0 1 1 0-8a4 4 0 0 1 0 8"/></svg>
+                         Ajouter un nouvel client
+                    </h4>
+                </div>
+                <div class="p-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex mb-4 ">
+                                <div class="row mx-0">
+                                    <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="fname">Nom</label>
+                                            <input class="form-control" id="fname" type="text" name="name"
+                                                placeholder="Nom de la personne ou de l'entreprise" />
+                                        </div>
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input type="email" placeholder="Email" name="email"
+                                                class="form-control fasty-input" id="email" />
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="phone">Téléphone</label>
+                                            <input class="form-control" id="phone" type="tel" name="phone"
+                                                placeholder="Téléphone" />
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="address">Adresse</label>
+                                            <input class="form-control" id="address" type="text" name="address"
+                                                placeholder="Ex: 12 rue de la paix, Drummonville, QC" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="zipcode">Code postal</label>
+                                            <input class="form-control" id="zipcode" type="text" name="zipcode"
+                                                placeholder="Code postal" />
+                                        </div>
+                                        <div class="col-md-12 mb-1">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="is_auto">Le client est-il une entreprise ?</label>
+                                                <input class="form-check-input" id="is_auto" name="is_auto"
+                                                    type="checkbox" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-3 d-none" id="nep-block">
+                                            <label class="form-label" for="nep">Le nep de l'entreprise</label>
+                                            <input class="form-control" id="nep" type="nep" name="nep"
+                                                placeholder="Le nep de l'entreprise" />
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-danger me-1 mb-1" type="button"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button class="btn btn-outline-primary me-1 mb-1" type="submit">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

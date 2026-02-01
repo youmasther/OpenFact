@@ -53,8 +53,8 @@ def index(request):
     for administrator in administrators_list:
         administrator.acronym = f"{administrator.user.first_name[0].upper()}{administrator.user.last_name[0].upper()}"
 
-    page = request.GET.get('page', 1)  # Get page number from query params
-    paginator = Paginator(administrators_list, 10)  # Show 10 horaires per page
+    page = request.GET.get('page', 1) 
+    paginator = Paginator(administrators_list, 10)
 
     try:
         administrators = paginator.page(page)

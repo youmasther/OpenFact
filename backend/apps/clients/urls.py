@@ -5,4 +5,5 @@ app_name = 'customers'
 
 urlpatterns = [
     path('', views.customer_view, name='customers'),
+    path('add', views.add_customer, name='add_customer'),
 ]
