@@ -145,3 +145,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TPS_RATE = 5.0      # 5%
+TVQ_RATE = 9.975    # 9.975%

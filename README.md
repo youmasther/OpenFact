@@ -113,7 +113,25 @@ Toutes les bibliothèques utilisées sont sous **licence libre**, conformément 
      ```
 3. Lancer l’application :
    ```bash
-   docker compose up --build
+   docker compose up --build -d
    ```
-4. Accéder à l’application :
+4. Créer les fichiers de migration :
+   ```bash
+   docker exec -it openfac_web python manage.py makemigrations
+   ```
+
+5. Créer les fichiers de migration :
+   ```bash
+   docker exec -it openfac_web python manage.py migrate
+   ```
+
+6. Créer les fichiers de migration :
+   ```bash
+   docker exec -it openfac_web python manage.py collectstatic --noinput
+    ```
+7. Créer les fichiers de migration :
+   ```bash
+   docker exec -it openfac_web python manage.py createsuperuser
+    ```
+8. Accéder à l’application :
   http://localhost:8000   

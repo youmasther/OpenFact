@@ -99,14 +99,22 @@
 
                             <button type="submit" class="form-control btn submit px-3 mt-3" style="background-color:#4DDAEE;">S’inscrire</button>
                         </form>
+                        <!-- Lien login -->
+							<div class="form-group text-center mt-3">
 
+								<p style="color:#fff;">
+									Vous avez un compte ?
+									<a href="{% url 'users:login' %}" style="color:#fff; font-weight:bold;">
+										Se connecter
+									</a>
+								</p>
+							</div>
                     </div>
                 </div>
             </div>
         </div>
 
     </section>
-
 
     <script src="{% static 'vendors/jquery/jquery.js' %}"></script>
 	<script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
