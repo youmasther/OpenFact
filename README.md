@@ -125,11 +125,11 @@ Toutes les bibliothèques utilisées sont sous **licence libre**, conformément 
    docker exec -it openfac_web python manage.py migrate
    ```
 
-6. Créer les fichiers de migration :
+6. Collecter les fichiers statiques :
    ```bash
    docker exec -it openfac_web python manage.py collectstatic --noinput
     ```
-7. Créer les fichiers de migration :
+7. Créer un superuser :
    ```bash
    docker exec -it openfac_web python manage.py createsuperuser
     ```
